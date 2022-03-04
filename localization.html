@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Localization</title>
+    </head>
+    <body>
+        <div>
+            <h1>Insert data to localize</h1>
+        </div>
+        <textarea name="localizationdata" id="localizationdata" rows="10" style="width: 100%;"></textarea>
+        <button id="localizationbutton">click here to generate localization json</button>
+        <div style="width: 100%;" id="result">
+
+        </div>
+    
+
+    <script>
+        let input = document.querySelector('#localizationdata');
+        let button = document.querySelector('#localizationbutton');
+        let resultContainer = document.querySelector('#result');
+        const opening = "__('";
+        const closing = "')";
+        
+        button.addEventListener('click', () => {
+
+            result = input.value
+            data = convertToLocalizationJson(result)
+            resultContainer.innerHTML = data
+        });
+
+        function convertToLocalizationJson(text){
+            let textArray = splitAndCleanArray(text);
+            let data = getLocalizationObject(textArray);
+
+            return JSON.stringify(data)
+        }
+
+        function splitAndCleanArray(array){
+            array = array.split("__('")
+            array.shift()
+            return array
+        }
+
+        function getLocalizationObject(array){
+            let data = {}
+            array.forEach(element => {
+                element = element.substr(0, element.indexOf("')"))
+                data[element] = 'default'
+            });
+            return data
+        }
+
+
+
+        // __('')
+
+        // input.value.indexOf(opening)
+
+        // input.value.substr()
+
+
+        
+    </script>
+</body>
+</html>
