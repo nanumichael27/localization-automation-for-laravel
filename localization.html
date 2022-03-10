@@ -44,7 +44,7 @@
             let data = {}
             array.forEach(element => {
                 element = element.substr(0, element.indexOf("')"))
-                data[element] = 'default'
+                data[element] = element
             });
             return data
         }
